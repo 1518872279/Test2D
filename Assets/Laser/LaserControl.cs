@@ -77,6 +77,7 @@ public class LaserControl : MonoBehaviour
             
             // 计算激光的旋转角度，使其朝向碰撞法线
             laserEndRotation = Vector2.Angle(direction, hit.normal);
+            Debug.Log("Laser hit " + hit.collider.gameObject);
         }
         else // 如果没有碰撞，激光终点为最大长度
         {
@@ -87,8 +88,8 @@ public class LaserControl : MonoBehaviour
         lineRenderer.SetPosition(1, new Vector2(length, 0));
 
         // 保持起始粒子效果的相对位置
-        startVFX.transform.position = startPosition + (Vector2)transform.right * -10f;
-
+        //startVFX.transform.position = startPosition + (Vector2)transform.right * -10f;
+        startVFX.transform.position = startPosition;
         // 应用激光的旋转到终点效果
         endVFX.transform.rotation = Quaternion.Euler(0, 0, laserEndRotation);
     }
