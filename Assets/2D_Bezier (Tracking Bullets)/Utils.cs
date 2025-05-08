@@ -10,6 +10,16 @@ public static class Utils
         return Vector2.Lerp(ab, bc, t);
     }
 
+    /*public static Vector2 BezierRotation(float t, Vector2 a, Vector2 b, Vector2 c, Transform transform)
+    {
+        //Vector2 ab = Vector2.Lerp(a, b, t);
+        Vector2 abDirection = (a - b).normalized;
+        float rotationZ = Mathf.Atan2(abDirection.y, abDirection.x);
+        transform.rotation = Quaternion.Euler(0f, 0f, rotationZ * Mathf.Rad2Deg);
+        Vector2 bc = Vector2.Lerp(b, c, t);
+        return Vector2.Lerp(ab, bc, t);
+    }*/
+
     /// <summary> 用于生成贝塞尔曲线中间的控制点（带弯曲扰动） </summary>
     public static Vector2 GetMiddlePosition(Vector2 a, Vector2 b)
     {
@@ -26,5 +36,13 @@ public static class Utils
         Vector3 mousePos = Input.mousePosition;
         mousePos.z = -Camera.main.transform.position.z;
         return Camera.main.ScreenToWorldPoint(mousePos);
+    }
+
+    /// <summary> 计算二次贝塞尔曲线在t处的切线方向 </summary>
+    public static Vector2 BezierTangent(float t, Vector2 a, Vector2 b, Vector2 c)
+    {
+        // 二次贝塞尔曲线的导数
+        Vector2 tangent = 2 * (1 - t) * (b - a) + 2 * t * (c - b);
+        return tangent.normalized;
     }
 }
